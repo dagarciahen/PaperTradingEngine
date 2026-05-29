@@ -1,0 +1,27 @@
+[
+  {
+    "Symbol": "BTCUSDT",
+    "Price": 6800.50,
+    "Timestamp": "2026-05-29T12:00:00Z"
+  },
+  {
+    "Symbol": "BTCUSDT",
+    "Price": 6812.75,
+    "Timestamp": "2026-05-29T12:01:00Z"
+  },
+  {
+    "Symbol": "BTCUSDT",
+    "Price": 6795.20,
+    "Timestamp": "2026-05-29T12:02:00Z"
+  },
+  {
+    "Symbol": "BTCUSDT",
+    "Price": 6820.10,
+    "Timestamp": "2026-05-29T12:03:00Z"
+  },
+  {
+    "Symbol": "BTCUSDT",
+    "Price": 6835.00,
+    "Timestamp": "2026-05-29T12:04:00Z"
+  }
+]

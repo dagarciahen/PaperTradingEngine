@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3TuvqT41sHE=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dangarcia\\source\\repos\\PTS\\src\\OrderSimulatorApi\\OrderSimulatorApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dangarcia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.8\\microsoft.aspnetcore.openapi.10.0.8.nupkg.sha512",
+    "C:\\Users\\dangarcia\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
