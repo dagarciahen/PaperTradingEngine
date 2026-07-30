@@ -646,6 +646,20 @@
         "runtime": {
           "bin/placeholder/Contracts.dll": {}
         }
+      },
+      "Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Contracts": "1.0.0",
+          "RabbitMQ.Client": "7.2.1"
+        },
+        "compile": {
+          "bin/placeholder/Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -1603,11 +1617,17 @@
       "type": "project",
       "path": "../Contracts/Contracts.csproj",
       "msbuildProject": "../Contracts/Contracts.csproj"
+    },
+    "Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Infrastructure/Infrastructure.csproj",
+      "msbuildProject": "../Infrastructure/Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "Contracts >= 1.0.0",
+      "Infrastructure >= 1.0.0",
       "Microsoft.Extensions.Hosting >= 10.0.8",
       "RabbitMQ.Client >= 7.2.1"
     ]
@@ -1651,6 +1671,9 @@
           "projectReferences": {
             "C:\\Users\\dangarcia\\source\\repos\\PTS\\src\\Contracts\\Contracts.csproj": {
               "projectPath": "C:\\Users\\dangarcia\\source\\repos\\PTS\\src\\Contracts\\Contracts.csproj"
+            },
+            "C:\\Users\\dangarcia\\source\\repos\\PTS\\src\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\dangarcia\\source\\repos\\PTS\\src\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -1697,7 +1720,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.302/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

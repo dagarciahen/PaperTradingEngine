@@ -9,3 +9,4 @@ C:\Users\dangarcia\source\repos\PTS\src\Contracts\obj\Debug\net10.0\Contracts.dl
 C:\Users\dangarcia\source\repos\PTS\src\Contracts\obj\Debug\net10.0\refint\Contracts.dll
 C:\Users\dangarcia\source\repos\PTS\src\Contracts\obj\Debug\net10.0\Contracts.pdb
 C:\Users\dangarcia\source\repos\PTS\src\Contracts\obj\Debug\net10.0\ref\Contracts.dll
+C:\Users\dangarcia\source\repos\PTS\src\Contracts\obj\Debug\net10.0\Contracts.sourcelink.json

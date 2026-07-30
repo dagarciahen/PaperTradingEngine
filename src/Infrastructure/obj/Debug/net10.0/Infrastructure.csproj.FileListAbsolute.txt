@@ -1,0 +1,16 @@
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.csproj.AssemblyReference.cache
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.AssemblyInfoInputs.cache
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.AssemblyInfo.cs
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.sourcelink.json
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\bin\Debug\net10.0\Infrastructure.deps.json
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\bin\Debug\net10.0\Infrastructure.dll
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\bin\Debug\net10.0\Infrastructure.pdb
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\bin\Debug\net10.0\Contracts.dll
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\bin\Debug\net10.0\Contracts.pdb
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastr.15EFFBFE.Up2Date
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.dll
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\refint\Infrastructure.dll
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\Infrastructure.pdb
+C:\Users\dangarcia\source\repos\PTS\src\Infrastructure\obj\Debug\net10.0\ref\Infrastructure.dll

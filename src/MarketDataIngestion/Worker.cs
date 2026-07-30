@@ -1,4 +1,7 @@
 using Contracts.Events;
+using Infrastructure;
+using System.Text;
+using System.Text.Json;
 using System;
 
 namespace MarketDataIngestion
@@ -7,34 +10,25 @@ namespace MarketDataIngestion
     {
         private readonly ILogger<Worker> _logger; 
         private readonly ILivePricePublisher _publisher;
+		private readonly IRabbitMQInfrastructure _rabbitmq;
 
-        public Worker(ILogger<Worker> logger, ILivePricePublisher publisher)
-        {
+public Worker(ILogger<Worker> logger, ILivePricePublisher publisher, IRabbitMQInfrastructure rabbitmq) {
             _logger = logger;
             _publisher = publisher;
+			_rabbitmq = rabbitmq;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-			Random rdn = new Random();
-			List<LivePriceUpdatedEvent> priceEvents = new List<LivePriceUpdatedEvent>();
-			for (int i = 0; i <10; i++)
-			{
-				var newPrice = Math.Round((decimal)rdn.NextDouble() *100m,2); //nextdouble random num (0.0 and 1.0) convert to decimal,	convert 0.3745 to 37.45 with *100m round to 2 
-				DateTime Now = DateTime.Now;
-				
-				priceEvents.Add(new LivePriceUpdatedEvent
-				{
-					
-					Symbol = "BTCUSDT",
-					Price = newPrice,
-					Timestamp = Now
-				});
-			}
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken) {
+            string path = "../Contracts/utils/prices.json";
+            List<LivePriceUpdatedEvent> priceEvents = new List<LivePriceUpdatedEvent>();
+            if (File.Exists(path))
+            {
+                string json = File.ReadAllText(path);
+                priceEvents = JsonSerializer.Deserialize<List<LivePriceUpdatedEvent>>(json) ?? new List<LivePriceUpdatedEvent>();
+            }
 
+			await _rabbitmq.InitializeAsync();
 
-            await _publisher.InitializeAsync();
- 
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (_logger.IsEnabled(LogLevel.Information))
