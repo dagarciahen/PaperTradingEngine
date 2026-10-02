@@ -1,11 +1,11 @@
 # Distributed Paper Trading Engine
 
-An event-driven, distributed paper trading platform that simulates high-volume
+An event-driven, distributed paper trading platform that simulates a high volume
 order execution against **live cryptocurrency prices** from Binance.
 
 Orders are simulated. Prices are real. The matching engine evaluates simulated
-orders against the real market and records the executions — all asynchronously,
-fault-tolerantly, and horizontally scalable.
+orders against the real market and records the executions all asynchronously,
+fault tolerantly, and horizontally scalable.
 
 > See [Project Status](#project-status).
 
@@ -95,7 +95,7 @@ which is an order of magnitude faster than row-by-row inserts.
 **Type:** .NET Worker Service (BackgroundService)
 
 The consumer and matching engine. **Stateless by design**, so it can be scaled
-horizontally — run 5 or 10 replicas, and RabbitMQ will round-robin messages
+horizontally run 5 or 10 replicas, and RabbitMQ will round-robin messages
 across all of them.
 
 - Consumes `execution_queue` with **manual acknowledgement**
