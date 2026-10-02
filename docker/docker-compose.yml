@@ -1,4 +1,3 @@
-version: "3.8"
 
 services:
   rabbitmq:
@@ -12,7 +11,7 @@ services:
       RABBITMQ_DEFAULT_USER: user
       RABBITMQ_DEFAULT_PASS: password 
     volumes: 
-      - rabbitmq_data:/var/lib/rabitmq
+      - rabbitmq_data:/var/lib/rabbitmq
 
 volumes:
   rabbitmq_data:

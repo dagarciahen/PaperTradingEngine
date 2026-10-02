@@ -10,19 +10,16 @@ namespace OrderSimulatorApi.Controllers;
  public IActionResult reperesna las resupestas 
  */
 
-public class OrdersControllers
+[ApiController]
+[Route("orders")]
+[Produces("application/json")]
+public class OrdersController : ControllerBase
 {
-	[ApiController]
-	[Route("orders")]
-	[Produces("application/json")]
-	public class OrdersController : ControllerBase
-	{
-		private readonly IOrderRepository _orderRepository;
-		public OrdersController(IOrderRepository orderRepository)
-		{
-			_orderRepository = orderRepository;
-		}
+	private readonly IOrderRepository _orderRepository;
 
+	public OrdersController(IOrderRepository orderRepository)
+	{
+		_orderRepository = orderRepository;
 	}
 	[HttpPost]
 	public async Task<IActionResult> CreateOrder(
@@ -39,7 +36,7 @@ public class OrdersControllers
 			CreatedAtUtc = DateTime.UtcNow
 		};
 		await _orderRepository.InsertOrderAsync(order);
-		return Acepted();
+		return Accepted();
 	}
 
 
@@ -56,16 +53,20 @@ public class OrdersControllers
 				Symbol = request.Symbol,
 				Type = request.Type,
 				Quantity = request.Quantity,
-				LimitPrice request.LimitPrice,
+				LimitPrice = request.LimitPrice,
 				Status = OrderStatus.Pending,
 				CreatedAtUtc = DateTime.UtcNow
 			};
 			orders.Add(order);
-
-			await _orderRepository.InserOrdersAsync(orders);
 		}
+
+		// Un solo round-trip: COPY BINARY hace el bulk insert.
+		await _orderRepository.InsertOrdersAsync(orders);
+
+		return Accepted(new { Inserted = orders.Count });
 	}
-	[HttpGet("{orderId")]
+
+	[HttpGet("{orderId:int}")]
 	public async Task<IActionResult> GetOrder(int orderId)
 	{
 		Order? result = await _orderRepository.GetByIdAsync(orderId);
@@ -73,8 +74,7 @@ public class OrdersControllers
 		{
 			return NotFound();
 		}
-		
 
 		return Ok(result);
-
 	}
+}

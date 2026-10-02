@@ -27,7 +27,7 @@ CREATE TABLE pte.executions(
     ExecutionId SERIAL PRIMARY KEY,
     OrderId INTEGER NOT NULL,
     ExecutedPrice numeric(18,4) NOT NULL,
-    Quantity INTEGER NOT NULL,
+    Quantity numeric(18,4) NOT NULL,
     ExecutedAtUtc timestamptz NOT NULL,
 
     CONSTRAINT fk_executions_orders

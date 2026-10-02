@@ -1,6 +1,9 @@
 ﻿using Dapper;
 using System.Data;
 using Npgsql;
+using Microsoft.Extensions.Options;
+using Contracts;
+
 
 
 namespace OrderSimulatorApi;
@@ -21,9 +24,9 @@ public class OrderRepository : IOrderRepository
 {
     private readonly DatabaseSettings _databaseSettings;
 
-    public OrderRepository(DatabaseSettings databaseSettings)
+    public OrderRepository(IOptions<DatabaseSettings> databaseSettings)
     {
-        _databaseSettings = databaseSettings;
+        _databaseSettings = databaseSettings.Value;
     }
 public async Task InsertOrderAsync(Order order)
     {
@@ -44,7 +47,7 @@ public async Task InsertOrderAsync(Order order)
 public async Task InsertOrdersAsync(IEnumerable<Order> orders)
     {
         await using var conn = 
-        new NpgsqlConnection(_databaseSetings.ConnectionString);
+        new NpgsqlConnection(_databaseSettings.ConnectionString);
 
         await conn.OpenAsync();
         await using var writer = conn.BeginBinaryImport(@"
@@ -102,9 +105,11 @@ public async Task InsertOrdersAsync(IEnumerable<Order> orders)
 		CreatedAtUtc,
 		ExecutedAtUt
 		
-			FROM pte.Orders where OrderId = @OrderId"
+			FROM pte.Orders where OrderId = @OrderId";
 
-		return await conn.QuerySingleOrDefault<Order>(sql, new {OrderId = orderId}, commandTimeout: _databaseSettings.Timeout);
+		await using var conn = new NpgsqlConnection(_databaseSettings.ConnectionString); 
+		await conn.OpenAsync();
+		return await conn.QuerySingleOrDefaultAsync<Order>(sql, new {OrderId = orderId}, commandTimeout: _databaseSettings.Timeout);
 
       
     }
@@ -127,14 +132,14 @@ public async Task InsertOrdersAsync(IEnumerable<Order> orders)
 			);
 		";
 		await using var conn = new NpgsqlConnection(_databaseSettings.ConnectionString);
-		await conn.QueryAsync();
+		await conn.OpenAsync();
 		await conn.ExecuteAsync(
 				sql,
 				execution,
 				commandTimeout: _databaseSettings.Timeout);
 	}
 
-	public async Task<bool> IsMessageprocessedAsync(string messageId)
+	public async Task<bool> IsMessageProcessedAsync(string messageId)
 	{
 		const string sql = @"
 			SELECT 1 FROM pte.processed_messages where messageId = @messageId;
@@ -159,10 +164,16 @@ public async Task InsertOrdersAsync(IEnumerable<Order> orders)
 			OrderId = @OrderId;
 			";
 			await using var conn = new NpgsqlConnection(_databaseSettings.ConnectionString);
-			await conn.ExecuteAsync(sql, orderId, executedAtUtc, commandTimeout: _databaseSettings.Timeout);
+			await conn.ExecuteAsync(sql,
+			new
+			{
+				OrderId = orderId,
+				ExecutedAtUtc = executedAtUtc
+			}, commandTimeout: _databaseSettings.Timeout);
+
 	}
 
-	public async Task RegisterProcessedMessageAsync(ProcessedMessage processedMessage)
+	public async Task RegisterProcessedMessageAsync(string messageId, DateTime processedAtUtc)
 	{
 		const string sql = @"
 			INSERT INTO pte.processed_messages
@@ -176,10 +187,13 @@ public async Task InsertOrdersAsync(IEnumerable<Order> orders)
 			 @ProcessedAtUtc
 			)";
 		await using var conn = new NpgsqlConnection(_databaseSettings.ConnectionString);
-		await conn.QueryAsync();
+		await conn.OpenAsync();
 		await conn.ExecuteAsync(
 				sql,
-				processedMessage,
+				new
+				{
+					MessageId = messageId
+				},
 				commandTimeout: _databaseSettings.Timeout);
 
 

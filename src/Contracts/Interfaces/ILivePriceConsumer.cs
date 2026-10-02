@@ -1,5 +1,6 @@
 ﻿using Contracts.Events; 
-namespace Contracts 
+
+namespace Contracts.Interfaces
 { 
     public interface ILivePriceConsumer
 

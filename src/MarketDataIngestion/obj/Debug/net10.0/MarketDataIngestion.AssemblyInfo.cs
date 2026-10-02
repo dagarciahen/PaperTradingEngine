@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MarketDataIngestion")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3fcb6ede4fb0ae61d320265bc25ed2bc1f182d5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+099527226b95c6b51ab1ffc6dcbab7887d4cd93d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MarketDataIngestion")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MarketDataIngestion")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 using Contracts.Events; 
-using Contracts;
+using Contracts.Interfaces;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Infrastructure;

@@ -1,4 +1,6 @@
-﻿namespace Contracts.Events
+﻿using Contracts.Events;
+
+namespace Contracts.Interfaces
 {
     public interface ILivePricePublisher
     {
