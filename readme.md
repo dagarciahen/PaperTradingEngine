@@ -223,8 +223,7 @@ environment:
 
 
 The clearest boundary in this system is that Binance supplies prices while orders remain entirely simulated; paper trading only means anything if the money is fake but the market is real, so inventing prices would make every result meaningless, and for the same reason the public market-data API is used rather than the trading API, which requires credentials and moves real funds. 
-Dapper was chosen over EF Core because the bulk-insert path relies on PostgreSQL's `COPY` binary protocol, a level of throughput that EF Core cannot match. Messages ar acknowledged manually rather than automatically, which gives at-least-once delivery: if a worker crashes mid-execution the message is requeued instead of lost, at the cost of requiring idempotent consumers. That guarantee is only useful because the workers themselves are stateless, meaning any replica can process any message, which is what allows horizontal scaling and rolling deploys without coordination. Configuration is externalized rather than hardcoded so the same build artifact runs locally and in Docker with no code changes, and the DTOs modelling Binance's wire format are marked `internal` because that format is
-an implementation detail of a single service, not a contract shared across the system.
+Messages are acknowledged manually rather than automatically, which gives at-least-once delivery: if a worker crashes mid-execution the message is requeued instead of lost, at the cost of requiring idempotent consumers. That guarantee is only useful because the workers themselves are stateless, meaning any replica can process any message, which is what allows horizontal scaling and rolling deploys without coordination.
 
 ---
 
@@ -239,23 +238,17 @@ an implementation detail of a single service, not a contract shared across the s
 - [x] `MarketDataIngestion` publishes `LivePriceUpdatedEvent` to `live_prices`
 - [x] `ExecutionWorker` consumes `execution_queue` with **manual ack**
 - [x] Config externalized with startup validation
-- [x] Domain contracts: `OrderType`, `OrderSide`, `OrderStatus`, versioned events
-- [x] PostgreSQL schema (`init.sql`): orders, executions, processed_messages
+- [x] Domain contracts: `OrderType`, `OrderSide`, `OrderStatus`, and PostgreSQL Schema
 - [x] `OrdersController`: `POST /orders`, `POST /orders/burst`, `GET /orders/{id}`
-- [x] Bulk insert via `COPY ... FROM STDIN (FORMAT BINARY)`
 
-### 🚧 In progress
-
+### Pending
 - [ ] `OrderSimulatorApi/Program.cs` — register controllers, repository, and `DatabaseSettings`
 - [ ] `OrderRepository` — Dapper queries and interface conformance
 - [ ] PostgreSQL service in `docker-compose.yml`
-
-### ❌ Pending
-
 - [ ] `pending_orders_queue` (durable) and `OrderCreatedEvent` publishing from the API
 - [ ] **Matching engine** evaluate orders against live prices, mark as `Executed`
 - [ ] Idempotency by `message_id` using `pte.processed_messages`
-- [ ] Dead-letter queue and retry policy
+- [ ] retry policy
 - [ ] Dockerfiles for all three services
 - [ ] Automated tests
 - [ ] Load testing with k6 and horizontal scale-out demonstration
